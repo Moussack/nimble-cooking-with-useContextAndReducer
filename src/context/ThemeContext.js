@@ -1,19 +1,11 @@
-import { createContext } from 'react';
+import { createContext, useReducer } from 'react';
 
 export const ThemeContext = createContext();
 
-export function ThemeProvider({ children }) {
-   return <ThemeContext.Provider value={{ color: 'teal' }}>{children}</ThemeContext.Provider>;
-}
-
-/* import { createContext, useReducer } from 'react';
-
-export const ThemeContext = createContext();
-
-const themeReducecr = (state, action) => {
+const themeReducer = (state, action) => {
    switch (action.type) {
       case 'CHANGE_COLOR':
-         return { ...state, color: action.payload };
+         return { ...state, color: action.value };
 
       default:
          return state;
@@ -21,12 +13,11 @@ const themeReducecr = (state, action) => {
 };
 
 export function ThemeProvider({ children }) {
-   const [state, dispatch] = useReducer(themeReducer, { color: 'teal' });
+   const [state, dispatch] = useReducer(themeReducer, { color: 'blue' });
 
    const changeColor = (color) => {
-      dispatch({ type: 'CHANGE_COLOR', payload: color });
+      dispatch({ type: 'CHANGE_COLOR', value: color });
    };
 
    return <ThemeContext.Provider value={{ ...state, changeColor }}>{children}</ThemeContext.Provider>;
 }
- */
