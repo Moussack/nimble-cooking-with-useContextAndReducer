@@ -1,11 +1,12 @@
 import { createContext, useReducer } from 'react';
+import { useImmerReducer } from 'use-immer';
 
 export const ThemeContext = createContext();
 
 const themeReducer = (state, action) => {
    switch (action.type) {
       case 'CHANGE_COLOR':
-         return { ...state, color: action.value };
+         state.color = action.value;
 
       default:
          return state;
@@ -13,7 +14,7 @@ const themeReducer = (state, action) => {
 };
 
 export function ThemeProvider({ children }) {
-   const [state, dispatch] = useReducer(themeReducer, { color: 'blue' });
+   const [state, dispatch] = useImmerReducer(themeReducer, { color: 'blue' });
 
    const changeColor = (color) => {
       dispatch({ type: 'CHANGE_COLOR', value: color });
