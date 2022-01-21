@@ -6,10 +6,12 @@ export const ThemeContext = createContext();
 const themeReducer = (state, action) => {
    switch (action.type) {
       case 'CHANGE_COLOR':
-         state.color = action.value;
+         state.color = action.payload;
+         return;
 
       case 'CHANGE_MODE':
-         state.mode = action.value;
+         state.mode = action.payload;
+         return;
 
       default:
          return state;
@@ -20,11 +22,11 @@ export function ThemeProvider({ children }) {
    const [state, dispatch] = useImmerReducer(themeReducer, { color: '#58249c', mode: 'dark' });
 
    const changeColor = (color) => {
-      dispatch({ type: 'CHANGE_COLOR', value: color });
+      dispatch({ type: 'CHANGE_COLOR', payload: color });
    };
 
    const changeMode = (mode) => {
-      dispatch({ type: 'CHANGE_MODE', value: mode });
+      dispatch({ type: 'CHANGE_MODE', payload: mode });
    };
 
    return <ThemeContext.Provider value={{ ...state, changeColor, changeMode }}>{children}</ThemeContext.Provider>;
