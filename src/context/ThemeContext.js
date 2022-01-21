@@ -8,17 +8,24 @@ const themeReducer = (state, action) => {
       case 'CHANGE_COLOR':
          state.color = action.value;
 
+      case 'CHANGE_MODE':
+         state.mode = action.value;
+
       default:
          return state;
    }
 };
 
 export function ThemeProvider({ children }) {
-   const [state, dispatch] = useImmerReducer(themeReducer, { color: 'blue' });
+   const [state, dispatch] = useImmerReducer(themeReducer, { color: '#58249c', mode: 'dark' });
 
    const changeColor = (color) => {
       dispatch({ type: 'CHANGE_COLOR', value: color });
    };
 
-   return <ThemeContext.Provider value={{ ...state, changeColor }}>{children}</ThemeContext.Provider>;
+   const changeMode = (mode) => {
+      dispatch({ type: 'CHANGE_MODE', value: mode });
+   };
+
+   return <ThemeContext.Provider value={{ ...state, changeColor, changeMode }}>{children}</ThemeContext.Provider>;
 }
